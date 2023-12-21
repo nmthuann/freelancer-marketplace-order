@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { TransactionEntity } from "./transaction.entity";
 
 @Entity({ name: 'PaymentMethods' })
 export class PaymentMethodEntity {
@@ -10,4 +11,10 @@ export class PaymentMethodEntity {
 
     @Column()
     description: string;
+
+    @OneToMany(
+        () => TransactionEntity, 
+        (transaction) => transaction.payment_method
+    )
+    transactions: TransactionEntity[];
 }
